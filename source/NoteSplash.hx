@@ -18,6 +18,8 @@ class NoteSplash extends FlxSprite
 
 		loadAnims(skin);
 		
+		scale.set(1.2, 1.2);
+		
 		colorSwap = new ColorSwap();
 		shader = colorSwap.shader;
 
@@ -40,7 +42,7 @@ class NoteSplash extends FlxSprite
 		colorSwap.hue = hueColor;
 		colorSwap.saturation = satColor;
 		colorSwap.brightness = brtColor;
-		offset.set(10, 10);
+		offset.set(-10, -10);
 
 		var animNum:Int = FlxG.random.int(1, 2);
 		animation.play('note' + note + '-' + animNum, true);
