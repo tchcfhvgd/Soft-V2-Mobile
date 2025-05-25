@@ -144,6 +144,7 @@ class PlayState extends MusicBeatState
 	public var boyfriendGroup:FlxSpriteGroup;
 	public var dadGroup:FlxSpriteGroup;
 	public var gfGroup:FlxSpriteGroup;
+	public var qqqebGroup:FlxSpriteGroup;
 	public static var curStage:String = '';
 	public static var isPixelStage:Bool = false;
 	public static var SONG:SwagSong = null;
@@ -192,6 +193,8 @@ class PlayState extends MusicBeatState
 
 	private var timeBarBG:AttachedSprite;
 	public var timeBar:FlxBar;
+	
+	var monsterAura:FlxSprite;
 
 	public var ratingsData:Array<Rating> = [];
 	public var sicks:Int = 0;
@@ -220,6 +223,7 @@ class PlayState extends MusicBeatState
 	public var iconP2:HealthIcon;
 	public var camHUD:FlxCamera;
 	public var camGame:FlxCamera;
+	public var camCinem:FlxCamera;
 	public var camOther:FlxCamera;
 	public var luaTpadCam:FlxCamera;
 	public var cameraSpeed:Float = 1;
@@ -399,14 +403,17 @@ class PlayState extends MusicBeatState
 
 		// var gameCam:FlxCamera = FlxG.camera;
 		camGame = new FlxCamera();
+		camCinem = new FlxCamera();
 		camHUD = new FlxCamera();
 		camOther = new FlxCamera();
 		luaTpadCam = new FlxCamera();
+		camCinem.bgColor.alpha = 0;
 		camHUD.bgColor.alpha = 0;
 		camOther.bgColor.alpha = 0;
 		luaTpadCam.bgColor.alpha = 0;
 
 		FlxG.cameras.reset(camGame);
+		FlxG.cameras.add(camCinem, false);
 		FlxG.cameras.add(camHUD, false);
 		FlxG.cameras.add(camOther, false);
 		FlxG.cameras.add(luaTpadCam, false);
@@ -517,6 +524,7 @@ class PlayState extends MusicBeatState
 		boyfriendGroup = new FlxSpriteGroup(BF_X, BF_Y);
 		dadGroup = new FlxSpriteGroup(DAD_X, DAD_Y);
 		gfGroup = new FlxSpriteGroup(GF_X, GF_Y);
+		qqqebGroup = new FlxSpriteGroup();
 
 		switch (curStage)
 		{
@@ -526,6 +534,37 @@ class PlayState extends MusicBeatState
 		
 		var boxes:BGSprite = new BGSprite('boxes', 'week1', 1280, 720);
 		add(boxes);
+		    case 'spooky-room':
+			var bg:BGSprite = new BGSprite('bg', 'week2', -700, -300);
+		add(bg);
+		
+		var light:BGSprite = new BGSprite('light', 'week2', -300, -300);
+		light.blend = ADD;
+		qqqebGroup.add(light);
+		    case 'spooky-room-evil':
+			var void:BGSprite = new BGSprite('EVIL/void', 'week2', -700, -300);
+		add(void);
+		
+		var objects:BGSprite = new BGSprite('EVIL/objects', 'week2', 0, 0);
+		add(objects);
+			
+			var bg:BGSprite = new BGSprite('EVIL/bg', 'week2', -700, -300);
+		add(bg);
+		
+		var light:BGSprite = new BGSprite('EVIL/light', 'week2', -700, -300);
+		add(light);
+		
+		var light2:BGSprite = new BGSprite('light', 'week2', -300, -300);
+		light2.blend = ADD;
+		qqqebGroup.add(light2);
+		
+		monsterAura = new FlxSprite(0, 0);
+		monsterAura.frames = Paths.getSparrowAtlas('monsterAura', 'shared');
+		monsterAura.screenCenter();
+		monsterAura.cameras = [camCinem];
+		monsterAura.animation.addByPrefix('idle', 'aura0', 24, true);
+		monsterAura.animation.play('idle');
+		add(monsterAura);
 			case 'stage': //Week 1
 				var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
 				add(bg);
@@ -868,6 +907,8 @@ class PlayState extends MusicBeatState
 
 		add(dadGroup);
 		add(boyfriendGroup);
+		
+		add(qqqebGroup);
 
 		switch(curStage)
 		{
@@ -953,8 +994,6 @@ class PlayState extends MusicBeatState
 			{
 				case 'stress':
 					gfVersion = 'pico-speaker';
-				case 'starcrossed':
-				    gf.visible = false;
 			}
 			SONG.gfVersion = gfVersion; //Fix for the Chart Editor
 		}
@@ -1100,6 +1139,12 @@ class PlayState extends MusicBeatState
 		opponentStrums = new FlxTypedGroup<StrumNote>();
 		playerStrums = new FlxTypedGroup<StrumNote>();
 
+		switch(Paths.formatToSongPath(SONG.song))
+			{
+				case 'starcrossed':
+				    gf.alpha = 0;
+		    }
+		
 		// startCountdown();
 
 		#if !android
