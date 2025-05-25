@@ -16,9 +16,9 @@ typedef MetadataFile = {
 }
 
 typedef MetadataCard = {
-    var name:Null<String>;
-    var artist:Null<String>;
-    var pause:Null<String>;
+    var name:Null<Array<String>>;
+    var artist:Null<Array<String>>;
+    var pause:Null<Array<String>>;
 }
 
 class Metadata 
