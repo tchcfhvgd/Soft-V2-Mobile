@@ -1141,7 +1141,7 @@ class PlayState extends MusicBeatState
 		add(healthBarBG);
 		if(ClientPrefs.downScroll) healthBarBG.y = 0.11 * FlxG.height;
 
-		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 50, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 38), Std.int(healthBarBG.height - 104), this,
+		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 46, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 40), Std.int(healthBarBG.height - 100), this,
 			'health', 0, 2);
 		healthBar.scrollFactor.set();
 		// healthBar
@@ -1162,7 +1162,7 @@ class PlayState extends MusicBeatState
 		add(iconP2);
 		reloadHealthBarColors();
 
-		scoreTxt = new FlxText(0, healthBarBG.y + 56, FlxG.width, "", 20);
+		scoreTxt = new FlxText(0, healthBarBG.y + 76, FlxG.width, "", 20);
 		scoreTxt.setFormat(Paths.font("DK Inky Fingers.otf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
