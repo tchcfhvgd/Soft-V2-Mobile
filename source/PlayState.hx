@@ -2247,27 +2247,7 @@ class PlayState extends MusicBeatState
 								countdownOne.destroy();
 							}
 						});
-						FlxG.sound.play(Paths.sound('intro1' + introSoundsSuffix), 0.6);
-					case 3:
-						countdownTwo = new FlxSprite().loadGraphic(Paths.image(introAlts[1]));
-						countdownTwo.cameras = [camHUD];
-						countdownTwo.scrollFactor.set();
-
-						if (PlayState.isPixelStage)
-							countdownTwo.setGraphicSize(Std.int(countdownTwo.width * daPixelZoom));
-
-						countdownTwo.screenCenter();
-						countdownTwo.antialiasing = antialias;
-						insert(members.indexOf(notes), countdownTwo);
-						FlxTween.tween(countdownTwo, {/*y: countdownTwo.y + 100,*/ alpha: 0}, Conductor.crochet / 1000, {
-							ease: FlxEase.cubeInOut,
-							onComplete: function(twn:FlxTween)
-							{
-								remove(countdownTwo);
-								countdownTwo.destroy();
-							}
-						});
-						FlxG.sound.play(Paths.sound('intro1' + introSoundsSuffix), 0.6);
+						FlxG.sound.play(Paths.sound('intro3' + introSoundsSuffix), 0.6);
 					case 3:
 						countdownGo = new FlxSprite().loadGraphic(Paths.image(introAlts[3]));
 						countdownGo.cameras = [camHUD];
