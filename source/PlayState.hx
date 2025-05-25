@@ -520,6 +520,12 @@ class PlayState extends MusicBeatState
 
 		switch (curStage)
 		{
+			case 'alleyway':
+			var bg:BGSprite = new BGSprite('bg', -300, -80);
+		add(bg);
+		
+		var boxes:BGSprite = new BGSprite('boxes', 1280, 720);
+		add(boxes);
 			case 'stage': //Week 1
 				var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
 				add(bg);
@@ -1141,7 +1147,7 @@ class PlayState extends MusicBeatState
 		add(healthBarBG);
 		if(ClientPrefs.downScroll) healthBarBG.y = 0.11 * FlxG.height;
 
-		healthBar = new FlxBar(healthBarBG.x + 41, healthBarBG.y + 46, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 81), Std.int(healthBarBG.height - 100), this,
+		healthBar = new FlxBar(healthBarBG.x + 40, healthBarBG.y + 46, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 80), Std.int(healthBarBG.height - 100), this,
 			'health', 0, 2);
 		healthBar.scrollFactor.set();
 		// healthBar
