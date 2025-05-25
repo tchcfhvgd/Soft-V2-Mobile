@@ -953,6 +953,8 @@ class PlayState extends MusicBeatState
 			{
 				case 'stress':
 					gfVersion = 'pico-speaker';
+				case 'starcrossed':
+				    gfVersion.visible = false;
 			}
 			SONG.gfVersion = gfVersion; //Fix for the Chart Editor
 		}
