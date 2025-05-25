@@ -1134,14 +1134,14 @@ class PlayState extends MusicBeatState
 		FlxG.fixedTimestep = false;
 		moveCameraSection();
 
-		healthBarBG = new FlxSprite(0, FlxG.height * 0.89).loadGraphic(Paths.image('healthBar'));
+		healthBarBG = new FlxSprite(0, FlxG.height * 0.84).loadGraphic(Paths.image('healthBar'));
 		healthBarBG.screenCenter(X);
 		healthBarBG.scrollFactor.set();
 		healthBarBG.visible = !ClientPrefs.hideHud;
 		add(healthBarBG);
 		if(ClientPrefs.downScroll) healthBarBG.y = 0.11 * FlxG.height;
 
-		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 44, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 28), Std.int(healthBarBG.height - 98), this,
+		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 48, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 30), Std.int(healthBarBG.height - 98), this,
 			'health', 0, 2);
 		healthBar.scrollFactor.set();
 		// healthBar
