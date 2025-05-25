@@ -60,6 +60,7 @@ import StageData;
 import FunkinLua;
 import DialogueBoxPsych;
 import Conductor.Rating;
+import Metadata.MetadataFile;
 
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
@@ -336,6 +337,11 @@ class PlayState extends MusicBeatState
 	public static var lastScore:Array<FlxSprite> = [];
 
 	public var luaTouchPad:TouchPad;
+	
+	public var card:SongCard;
+	public var hasMetadata:Bool;
+	
+	public static var metadata:Null<MetadataFile>;
 
 	override public function create()
 	{
@@ -450,6 +456,8 @@ class PlayState extends MusicBeatState
 
 		GameOverSubstate.resetVariables();
 		var songName:String = Paths.formatToSongPath(SONG.song);
+		
+		metadata = Metadata.get(songName);
 
 		curStage = SONG.stage;
 		//trace('stage is: ' + curStage);
@@ -1221,6 +1229,15 @@ class PlayState extends MusicBeatState
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
+		
+		hasMetadata = (metadata != null);
+
+		if (hasMetadata) {
+			card = new SongCard(0, 0, metadata);
+			card.screenCenter(Y);
+			card.x = -card.width;
+			add(card);
+		}
 
 		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
 		botplayTxt.setFormat(Paths.font("DK Inky Fingers.otf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -1240,6 +1257,7 @@ class PlayState extends MusicBeatState
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
+		if (hasMetadata) card.cameras = [camOther];
 		botplayTxt.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
@@ -2477,6 +2495,10 @@ class PlayState extends MusicBeatState
 		songLength = FlxG.sound.music.length;
 		FlxTween.tween(timeBar, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
 		FlxTween.tween(timeTxt, {alpha: 1}, 0.5, {ease: FlxEase.circOut});
+		
+		if (hasMetadata) {
+			card.display();
+		}
 
 		switch(curStage)
 		{
