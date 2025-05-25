@@ -19,6 +19,7 @@ typedef MetadataCard = {
     var pause:Null<String>;
 }
 
+using StringTools;
 class Metadata 
 {
     public static function get(song:String):MetadataFile
