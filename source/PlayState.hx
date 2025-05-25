@@ -1141,7 +1141,7 @@ class PlayState extends MusicBeatState
 		add(healthBarBG);
 		if(ClientPrefs.downScroll) healthBarBG.y = 0.11 * FlxG.height;
 
-		healthBar = new FlxBar(healthBarBG.x + 38, healthBarBG.y + 46, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 78), Std.int(healthBarBG.height - 100), this,
+		healthBar = new FlxBar(healthBarBG.x + 44, healthBarBG.y + 46, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 84), Std.int(healthBarBG.height - 100), this,
 			'health', 0, 2);
 		healthBar.scrollFactor.set();
 		// healthBar
@@ -2080,15 +2080,16 @@ class PlayState extends MusicBeatState
 	var finishTimer:FlxTimer = null;
 
 	// For being able to mess with the sprites on Lua
-	public var countdownReady:FlxSprite;
-	public var countdownSet:FlxSprite;
+	public var countdownThree:FlxSprite;
+	public var countdownTwo:FlxSprite;
+	public var countdownOne:FlxSprite;
 	public var countdownGo:FlxSprite;
 	public static var startOnTime:Float = 0;
 
 	function cacheCountdown()
 	{
 		var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
-		introAssets.set('default', ['ready', 'set', 'go']);
+		introAssets.set('default', ['3', '2', '1', 'go']);
 		introAssets.set('pixel', ['pixelUI/ready-pixel', 'pixelUI/set-pixel', 'pixelUI/date-pixel']);
 
 		var introAlts:Array<String> = introAssets.get('default');
@@ -2163,7 +2164,7 @@ class PlayState extends MusicBeatState
 				}
 
 				var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
-				introAssets.set('default', ['ready', 'set', 'go']);
+				introAssets.set('default', ['3', '2', '1', 'go']);
 				introAssets.set('pixel', ['pixelUI/ready-pixel', 'pixelUI/set-pixel', 'pixelUI/date-pixel']);
 
 				var introAlts:Array<String> = introAssets.get('default');
@@ -2185,50 +2186,90 @@ class PlayState extends MusicBeatState
 				switch (swagCounter)
 				{
 					case 0:
-						FlxG.sound.play(Paths.sound('intro3' + introSoundsSuffix), 0.6);
-					case 1:
-						countdownReady = new FlxSprite().loadGraphic(Paths.image(introAlts[0]));
-						countdownReady.cameras = [camHUD];
-						countdownReady.scrollFactor.set();
-						countdownReady.updateHitbox();
+						countdownThree = new FlxSprite().loadGraphic(Paths.image(introAlts[0]));
+						countdownThree.cameras = [camHUD];
+						countdownThree.scrollFactor.set();
+						countdownThree.updateHitbox();
 
 						if (PlayState.isPixelStage)
-							countdownReady.setGraphicSize(Std.int(countdownReady.width * daPixelZoom));
+							countdownThree.setGraphicSize(Std.int(countdownThree.width * daPixelZoom));
 
-						countdownReady.screenCenter();
-						countdownReady.antialiasing = antialias;
-						insert(members.indexOf(notes), countdownReady);
-						FlxTween.tween(countdownReady, {/*y: countdownReady.y + 100,*/ alpha: 0}, Conductor.crochet / 1000, {
+						countdownThree.screenCenter();
+						countdownThree.antialiasing = antialias;
+						insert(members.indexOf(notes), countdownThree);
+						FlxTween.tween(countdownThree, {/*y: countdownThree.y + 100,*/ alpha: 0}, Conductor.crochet / 1000, {
 							ease: FlxEase.cubeInOut,
 							onComplete: function(twn:FlxTween)
 							{
-								remove(countdownReady);
-								countdownReady.destroy();
+								remove(countdownThree);
+								countdownThree.destroy();
+							}
+						});
+						FlxG.sound.play(Paths.sound('intro3' + introSoundsSuffix), 0.6);
+					case 1:
+						countdownTwo = new FlxSprite().loadGraphic(Paths.image(introAlts[1]));
+						countdownTwo.cameras = [camHUD];
+						countdownTwo.scrollFactor.set();
+
+						if (PlayState.isPixelStage)
+							countdownTwo.setGraphicSize(Std.int(countdownTwo.width * daPixelZoom));
+
+						countdownTwo.screenCenter();
+						countdownTwo.antialiasing = antialias;
+						insert(members.indexOf(notes), countdownTwo);
+						FlxTween.tween(countdownTwo, {/*y: countdownTwo.y + 100,*/ alpha: 0}, Conductor.crochet / 1000, {
+							ease: FlxEase.cubeInOut,
+							onComplete: function(twn:FlxTween)
+							{
+								remove(countdownTwo);
+								countdownTwo.destroy();
 							}
 						});
 						FlxG.sound.play(Paths.sound('intro2' + introSoundsSuffix), 0.6);
 					case 2:
-						countdownSet = new FlxSprite().loadGraphic(Paths.image(introAlts[1]));
-						countdownSet.cameras = [camHUD];
-						countdownSet.scrollFactor.set();
+						countdownOne = new FlxSprite().loadGraphic(Paths.image(introAlts[2]));
+						countdownOne.cameras = [camHUD];
+						countdownOne.scrollFactor.set();
 
 						if (PlayState.isPixelStage)
-							countdownSet.setGraphicSize(Std.int(countdownSet.width * daPixelZoom));
+							countdownOne.setGraphicSize(Std.int(countdownOne.width * daPixelZoom));
 
-						countdownSet.screenCenter();
-						countdownSet.antialiasing = antialias;
-						insert(members.indexOf(notes), countdownSet);
-						FlxTween.tween(countdownSet, {/*y: countdownSet.y + 100,*/ alpha: 0}, Conductor.crochet / 1000, {
+						countdownOne.updateHitbox();
+
+						countdownOne.screenCenter();
+						countdownOne.antialiasing = antialias;
+						insert(members.indexOf(notes), countdownOne);
+						FlxTween.tween(countdownOne, {/*y: countdownOne.y + 100,*/ alpha: 0}, Conductor.crochet / 1000, {
 							ease: FlxEase.cubeInOut,
 							onComplete: function(twn:FlxTween)
 							{
-								remove(countdownSet);
-								countdownSet.destroy();
+								remove(countdownOne);
+								countdownOne.destroy();
 							}
 						});
 						FlxG.sound.play(Paths.sound('intro1' + introSoundsSuffix), 0.6);
 					case 3:
-						countdownGo = new FlxSprite().loadGraphic(Paths.image(introAlts[2]));
+						countdownTwo = new FlxSprite().loadGraphic(Paths.image(introAlts[1]));
+						countdownTwo.cameras = [camHUD];
+						countdownTwo.scrollFactor.set();
+
+						if (PlayState.isPixelStage)
+							countdownTwo.setGraphicSize(Std.int(countdownTwo.width * daPixelZoom));
+
+						countdownTwo.screenCenter();
+						countdownTwo.antialiasing = antialias;
+						insert(members.indexOf(notes), countdownTwo);
+						FlxTween.tween(countdownTwo, {/*y: countdownTwo.y + 100,*/ alpha: 0}, Conductor.crochet / 1000, {
+							ease: FlxEase.cubeInOut,
+							onComplete: function(twn:FlxTween)
+							{
+								remove(countdownTwo);
+								countdownTwo.destroy();
+							}
+						});
+						FlxG.sound.play(Paths.sound('intro1' + introSoundsSuffix), 0.6);
+					case 3:
+						countdownGo = new FlxSprite().loadGraphic(Paths.image(introAlts[3]));
 						countdownGo.cameras = [camHUD];
 						countdownGo.scrollFactor.set();
 
