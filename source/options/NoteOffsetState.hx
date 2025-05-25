@@ -61,14 +61,14 @@ class NoteOffsetState extends MusicBeatState
 		persistentUpdate = true;
 		FlxG.sound.pause();
 		// Stage
-		var bg:BGSprite = new BGSprite('bg', -300, -80);
+		var bg:BGSprite = new BGSprite('bg', 'week1', -300, -80);
 		add(bg);
 		
-		var boxes:BGSprite = new BGSprite('boxes', 1280, 720);
+		var boxes:BGSprite = new BGSprite('boxes', 'week1', 1280, 720);
 		add(boxes);
 
 		// Characters
-		pico = new Character(400, 130, 'pico');
+		pico = new Character(200, 130, 'pico');
 		pico.x += pico.positionArray[0];
 		pico.y += pico.positionArray[1];
 		pico.scrollFactor.set(0.95, 0.95);
@@ -450,6 +450,7 @@ class NoteOffsetState extends MusicBeatState
 		timeTxt.visible = !onComboMenu;
 		beatText.visible = !onComboMenu;
 
+		removeTouchPad();
 		addTouchPad(onComboMenu ? "NONE" : "LEFT_RIGHT", "A_B_C");
 		addTouchPadCamera();
 
