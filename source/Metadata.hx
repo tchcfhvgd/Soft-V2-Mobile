@@ -9,6 +9,8 @@ import sys.io.File;
 import sys.FileSystem;
 #end
 
+using StringTools;
+
 typedef MetadataFile = {
     var song:MetadataCard;
 }
@@ -19,7 +21,6 @@ typedef MetadataCard = {
     var pause:Null<String>;
 }
 
-using StringTools;
 class Metadata 
 {
     public static function get(song:String):MetadataFile
