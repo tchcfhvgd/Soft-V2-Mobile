@@ -18,7 +18,7 @@ class NoteSplash extends FlxSprite
 
 		loadAnims(skin);
 		
-		scale.set(1.25, 1.25);
+		scale.set(1.3, 1.3);
 		
 		colorSwap = new ColorSwap();
 		shader = colorSwap.shader;
