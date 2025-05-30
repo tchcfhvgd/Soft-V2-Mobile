@@ -23,11 +23,11 @@ class SongCard extends FlxSpriteGroup
 
         data = meta;
 
-        text = new FlxText(x + 40, y + 120).setFormat(Paths.font("DK Inky Fingers.otf"), 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        text = new FlxText(x + 40, y + 60).setFormat(Paths.font("DK Inky Fingers.otf"), 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         text.antialiasing = ClientPrefs.globalAntialiasing;
         text.text = formString();
         
-        var bg = new FlxSprite(x, y + 80).loadGraphic(Paths.image('credit_card', 'shared'));
+        var bg = new FlxSprite(x, y + 40).loadGraphic(Paths.image('credit_card', 'shared'));
 
         add(bg);
         add(text);
