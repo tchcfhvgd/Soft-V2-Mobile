@@ -37,7 +37,7 @@ class SongCard extends FlxSpriteGroup
 
     public function formString():String
     {
-        return 'Song: ${data.song.name.join(', ')}\nChart: ${data.song.artist.join(', ')}';
+        return 'Song: ${data.song.name.join}\nArtists: ${data.song.artist}';
     }
 
     public function display() {
