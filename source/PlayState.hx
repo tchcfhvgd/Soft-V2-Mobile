@@ -1233,8 +1233,7 @@ class PlayState extends MusicBeatState
 		hasMetadata = (metadata != null);
 
 		if (hasMetadata) {
-			card = new SongCard(0, 0, metadata);
-			card.screenCenter(Y);
+			card = new SongCard(0, 60, metadata);
 			card.x = -card.width;
 			add(card);
 		}
