@@ -15,7 +15,6 @@ class SongCard extends FlxSpriteGroup
 {
     var text:FlxText;
     var bg:FlxSprite;
-    var padding:Float = 20;
     public var data:MetadataFile;
 
     public function new(x:Float, y:Float, meta:MetadataFile) 
@@ -24,11 +23,11 @@ class SongCard extends FlxSpriteGroup
 
         data = meta;
 
-        text = new FlxText(x + padding, y + padding).setFormat(Paths.font("DK Inky Fingers.otf"), 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        text = new FlxText(x + 80, y + 120).setFormat(Paths.font("DK Inky Fingers.otf"), 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         text.antialiasing = ClientPrefs.globalAntialiasing;
         text.text = formString();
         
-        var bg = new FlxSprite(x + padding, y + padding).loadGraphic(Paths.image('credit_card', 'shared'));
+        var bg = new FlxSprite(x, y + 80).loadGraphic(Paths.image('credit_card', 'shared'));
 
         add(bg);
         add(text);
@@ -36,14 +35,14 @@ class SongCard extends FlxSpriteGroup
 
     public function formString():String
     {
-        return 'Song: ${data.song.name}\nArtists: ${data.song.artist}';
+        return 'Song: ${data.song.name}\nArtist: ${data.song.artist}';
     }
 
     public function display() {
         var initX:Float = this.x;
 
         FlxTween.tween(this, {x: initX + this.width}, 1, {ease: FlxEase.cubeInOut, onComplete: function(twn:FlxTween) {
-            FlxTween.tween(this, {x: initX}, 1, {ease: FlxEase.cubeInOut, startDelay: 8, onComplete: function(twn:FlxTween) {
+            FlxTween.tween(this, {x: initX}, 1, {ease: FlxEase.cubeInOut, startDelay: 4, onComplete: function(twn:FlxTween) {
                 this.destroy();
             }});
         }});
