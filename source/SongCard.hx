@@ -23,7 +23,7 @@ class SongCard extends FlxSpriteGroup
 
         data = meta;
 
-        text = new FlxText(x + 80, y + 120).setFormat(Paths.font("DK Inky Fingers.otf"), 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        text = new FlxText(x + 40, y + 120).setFormat(Paths.font("DK Inky Fingers.otf"), 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         text.antialiasing = ClientPrefs.globalAntialiasing;
         text.text = formString();
         
